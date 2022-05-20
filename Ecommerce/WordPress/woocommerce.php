@@ -25,8 +25,8 @@ function enhanced_ecommerce_tracking( $order_id ){
 	var enhanced_conversion_data = {
 	    'first_name': '<?php echo $first_name; ?>',
 	    'last_name': '<?php echo $last_name; ?>',
-	    'email' = '<?php echo $email; ?>',
-	    'phone_number' = '<?php echo $phone; ?>',
+	    'email': '<?php echo $email; ?>',
+	    'phone_number': '<?php echo $phone; ?>',
 	    'home_address': {
 	      'street': '<?php echo $home_address; ?>',
 	      'city': '<?php echo $city; ?>',
