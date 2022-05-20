@@ -1,0 +1,37 @@
+<script>
+
+var enhanced_conversion_data = {};
+
+async function getCheckoutData(checkoutId){
+	const response = await fetch(`/api/storefront/checkout/${checkoutId}`, {credentials: 'include'});
+	const jsonData = await response.json();
+	return jsonData;
+}
+
+async function sendEnhancedConversion(){
+	const checkoutId = '{{checkout.id}}';
+	const data = await getCheckoutData(checkoutId);
+	const orderSubTotal = data.subtotal;
+	const orderId = data.orderId;
+
+	enhanced_conversion_data.first_name = data.billingAddress.firstName;
+	enhanced_conversion_data.last_name = data.billingAddress.lastName;
+	enhanced_conversion_data.email = data.billingAddress.email;
+	enhanced_conversion_data.phone_number = data.billingAddress.phone;
+	enhanced_conversion_data.street = data.billingAddress.address1;
+	enhanced_conversion_data.city = data.billingAddress.city;
+	enhanced_conversion_data.region = data.billingAddress.stateOrProvince;
+	enhanced_conversion_data.postal_code = data.billingAddress.postalCode;
+	enhanced_conversion_data.country = data.billingAddress.country;
+
+	gtag('event', 'conversion', {
+       'send_to': 'AW-123235454/asdjlkasjMLSLKjalsk',
+       'value': orderSubTotal,
+       'currency': 'USD',
+       'transaction_id': orderId
+   });
+}
+
+window.addEventListener('load', sendEnhancedConversion);
+
+</script>
